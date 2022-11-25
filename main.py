@@ -3,12 +3,16 @@
 
 print("Hello World")
 
-#TODO: Generate our population:
+#TODO: Generate our population: Input: textfile and integer inputs; Output: population of N valid schedules (Lougheed)
 
-#TODO: Deletion
+#Example output format: output = {"CSMA U13T3 DIV 01": "MO, 10:00", "CSMA U13T3 DIV 01 PRC 01": "TU, 10:00" .... "EVAL": 30}
+#We use a dictonary to store ONE valid schedule, our populaton will be an array of n length of these dictonaries.
+#All functions below should take ONE valid schedule at a time, and we shall repeat the functions for all schedules
 
-#TODO: Mutation
+#TODO: Deletion (Alexis)
 
-#TODO: Crossover 
+#TODO: Mutation (Issac)
 
-#TODO: Evaluate best solutions and repeat
+#TODO: Crossover (Yianni)
+
+#TODO: Evaluate best solutions and repeat, this TODO also includes determining which schedules to apply the extention rules to. (Chirag)
