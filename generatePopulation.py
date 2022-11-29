@@ -4,8 +4,8 @@ import sys
 import globalVariables
 
 
-def generate_pop():
-    print("Generating population...")
+def parse_inputs():
+    print("Parsing inputs...")
     #read inputs and assign variables from cmd arguments
     globalVariables.evalVariables = {"minfilled": int(sys.argv[2]), "pref": int(sys.argv[3]), "pair": int(sys.argv[4]), "secdiff": int(sys.argv[5]), "gamemin": int(sys.argv[6]), "practicemin": int(sys.argv[7]), "notpaired": int(sys.argv[8]), "section": int(sys.argv[9])}
 
@@ -73,8 +73,8 @@ def generate_pop():
         elif switch == "partialAssignments":
             splitStr = eachline.strip().split(",")
             globalVariables.partialAssignments.update({splitStr[0]: (splitStr[1]+splitStr[2])})
-        
+    f.close()
 
-
-
-
+def generate_pop():
+    #TODO use parsed data and generate population
+    print("Generating valid solutions...")
