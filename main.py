@@ -1,9 +1,13 @@
 #Main execution file: Run system off this file:
 #To run program: type "python main.py"
+import generatePopulation
+import globalVariables
 
-print("Hello World")
+print("Intiating Algorithm")
 
 #TODO: Generate our population: Input: textfile and integer inputs; Output: population of N valid schedules (Lougheed)
+generatePopulation.generate_pop()
+print(globalVariables.pair)
 
 #Example output format: output = {"CSMA U13T3 DIV 01": "MO, 10:00", "CSMA U13T3 DIV 01 PRC 01": "TU, 10:00" .... "EVAL": 30}
 #We use a dictonary to store ONE valid schedule, our populaton will be an array of n length of these dictonaries.
