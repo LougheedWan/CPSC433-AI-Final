@@ -6,7 +6,7 @@ import globalVariables
 print("Intiating Algorithm")
 
 #TODO: Generate our population: Input: textfile and integer inputs; Output: population of N valid schedules (Lougheed)
-#lets generate 5 schedules first...
+#lets generate 4 schedules first...
 for x in range(4):
     generatePopulation.parse_inputs()
     #print(globalVariables.practices)
