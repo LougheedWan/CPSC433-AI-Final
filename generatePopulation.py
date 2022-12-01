@@ -2,7 +2,7 @@
 #import statements:
 import sys
 import globalVariables
-
+import random
 
 def parse_inputs():
     print("Parsing inputs...")
@@ -52,7 +52,7 @@ def parse_inputs():
             #print("IN GAMESLOTS")
             splitStr = eachline.strip().split(",")
             #print(splitStr)
-            globalVariables.gameSlots.update({splitStr[0]+splitStr[1]:{"gamemax":splitStr[2], "gamemin":splitStr[3]}})
+            globalVariables.gameSlots.update({splitStr[0] + "," +splitStr[1]:{"gamemax":splitStr[2], "gamemin":splitStr[3]}})
         elif switch == "practiceSlots":
             splitStr = eachline.strip().split(",")
             globalVariables.practiceSlots.update({splitStr[0]+splitStr[1]:{"practicemax":splitStr[2], "practicemin":splitStr[3]}})
@@ -63,11 +63,9 @@ def parse_inputs():
         elif switch == "notCompatible":
             globalVariables.notCompatible.append(eachline.strip())
         elif switch == "unwanted":
-            splitStr = eachline.strip().split(",")
-            globalVariables.unwanted.update({splitStr[0] : (splitStr[1]+ splitStr[2])})
+            globalVariables.unwanted.append(eachline.strip())
         elif switch == "preferences":
-            splitStr = eachline.strip().split(",")
-            globalVariables.preferences.update({splitStr[0]+splitStr[1]: {"ID": splitStr[2], "prefValue": splitStr[3]}})
+            globalVariables.preferences.append(eachline.strip())
         elif switch == "pair":
             globalVariables.pair.append(eachline.strip())
         elif switch == "partialAssignments":
@@ -78,3 +76,78 @@ def parse_inputs():
 def generate_pop():
     #TODO use parsed data and generate population
     print("Generating valid solutions...")
+    #start with partial assignments
+    for partialAssignments in globalVariables.partialAssignments:
+        globalVariables.schedule.update({partialAssignments: globalVariables.partialAssignments[partialAssignments]})
+    #choose a random game
+    while(len(globalVariables.games) > 0):
+        randomGame = random.choice(globalVariables.games)
+        #choose a random gameSlot
+        randomGameSlot = random.choice(list(globalVariables.gameSlots))
+        tempAssignment = str(randomGame + ", " + randomGameSlot)
+        #check hard constraints of assignment
+        #check unwanted
+        notValid = False
+        notValid = checkUnwanted(tempAssignment)
+        #check notCompatible
+        notValid = checkNotCompatible(randomGame, randomGameSlot)
+        #check for gamemax
+        notValid = checkGameMax(randomGameSlot)
+        if notValid == False:
+            print("ALL CHECKS COMPLETED...ADDING GAME TO SCHEDULE")
+            globalVariables.schedule.update({randomGame: randomGameSlot})
+            #decrease gamemax
+            globalVariables.gameSlots[str(randomGameSlot).strip()]["gamemax"] = int(globalVariables.gameSlots[str(randomGameSlot).strip()]["gamemax"]) - 1
+            #print(globalVariables.gameSlots[str(randomGameSlot).strip()]["gamemax"])
+            #remove game from game slots
+            globalVariables.games.remove(str(randomGame).strip())
+            #print(globalVariables.games)
+        else:
+            print("NOT VALID ADDITION TO SCHEDULE, TRYING AGAIN...")
+    print(globalVariables.schedule)
+    #check for hard constraints
+    #
+
+def checkUnwanted(assignment):
+    print("CHECKING FOR UNWANTED")
+    #print(assignment)
+    for unwanted in globalVariables.unwanted:
+        #print(str(unwanted).strip())
+        if (str(unwanted).strip() == str(assignment).strip()):
+            return True
+    return False
+
+def checkNotCompatible(game, slot):
+    print("CHECKING FOR NON COMPATIBLE")
+    #print("CHOSEN GAME " + game)
+    for notCompatible in globalVariables.notCompatible:
+        stripped = str(notCompatible).strip().split(", ")
+        if (stripped[0] == str(game).strip()):
+            #print("Stripped[0]--" + stripped[0])
+            #check to see if times conflict
+            if stripped[1] in globalVariables.schedule:
+                print("In schedule, checking time")
+                timeslot = globalVariables.schedule[stripped[1]]
+            #print(timeslot)
+                if (str(timeslot).strip() == str(slot).strip()):
+                    return True
+        if (stripped[1] == str(game).strip()):
+            #print(stripped[1])
+            #check to see if times conflict
+            if stripped[0] in globalVariables.schedule:
+                print("In schedule, checking time")
+                timeslot = globalVariables.schedule[stripped[0]]
+
+                if (str(timeslot).strip() == str(slot).strip()):
+                    return True
+
+    return False
+
+def checkGameMax(slot):
+    print("selected slot--" + slot)
+    print("CHECKING TO SEE IF GAMEMAX IS FULL")
+    currentMax = globalVariables.gameSlots[str(slot).strip()]["gamemax"]
+    print(currentMax)
+    if int(currentMax)-1 <= 0:
+        return True
+    return False

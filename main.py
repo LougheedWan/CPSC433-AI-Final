@@ -7,7 +7,7 @@ print("Intiating Algorithm")
 
 #TODO: Generate our population: Input: textfile and integer inputs; Output: population of N valid schedules (Lougheed)
 generatePopulation.parse_inputs()
-print(globalVariables.pair)
+#print(globalVariables.unwanted)
 generatePopulation.generate_pop()
 
 #Example output format: output = {"CSMA U13T3 DIV 01": "MO, 10:00", "CSMA U13T3 DIV 01 PRC 01": "TU, 10:00" .... "EVAL": 30}

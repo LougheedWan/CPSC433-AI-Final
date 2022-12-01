@@ -18,13 +18,19 @@ global notCompatible
 notCompatible = []
 
 global unwanted
-unwanted = {}
+unwanted = []
 
 global preferences
-preferences = {}
+preferences = []
 
 global pair
 pair = []
 
 global partialAssignments
 partialAssignments = {}
+
+global population
+population = []
+
+global schedule
+schedule = {}
