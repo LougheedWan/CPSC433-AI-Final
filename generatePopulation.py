@@ -5,12 +5,12 @@ import globalVariables
 import random
 
 def parse_inputs():
-    print("Parsing inputs...")
+    #print("Parsing inputs...")
     #read inputs and assign variables from cmd arguments
     globalVariables.evalVariables = {"minfilled": int(sys.argv[2]), "pref": int(sys.argv[3]), "pair": int(sys.argv[4]), "secdiff": int(sys.argv[5]), "gamemin": int(sys.argv[6]), "practicemin": int(sys.argv[7]), "notpaired": int(sys.argv[8]), "section": int(sys.argv[9])}
 
     #assign gameSlots to dictionary
-    print("opening input file: " + sys.argv[1])
+    #print("opening input file: " + sys.argv[1])
     f = open(str(sys.argv[1]), "r")
     switch = ""
     for eachline in f:
