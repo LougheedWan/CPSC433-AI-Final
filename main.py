@@ -33,6 +33,7 @@ print(globalVariables.population)
 #All functions below should take ONE valid schedule at a time, and we shall repeat the functions for all schedules
 
 #TODO: Deletion (Alexis)
+# testing that GitHub Codespace is set up correctly for this repository
 
 #TODO: Mutation (Issac)
 
