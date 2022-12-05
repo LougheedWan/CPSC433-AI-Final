@@ -122,6 +122,8 @@ def generate_pop():
             globalVariables.practiceSlots[str(randomPracticeSlot).strip()]["practicemax"] = int(globalVariables.practiceSlots[str(randomPracticeSlot).strip()]["practicemax"]) - 1
             #remove practice from practice slots
             globalVariables.practices.remove(str(randomPractice).strip())
+    #add in a blank eval value
+    globalVariables.schedule.update({"Eval": 0})
     print("GENERATION COMPLETE...")
     #print(globalVariables.schedule)
     #check for hard constraints
