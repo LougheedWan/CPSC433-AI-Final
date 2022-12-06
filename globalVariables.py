@@ -27,7 +27,7 @@ global pair
 pair = []
 
 global partialAssignments
-partialAssignments = {}
+partialAssignments = []
 
 global population
 population = []

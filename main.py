@@ -11,7 +11,7 @@ print("Intiating Algorithm")
 # using this number as popnum to keep track of the number of facts in a population would be convenient
 for x in range(4):
     generatePopulation.parse_inputs()
-    #print(globalVariables.practices)
+    #print(globalVariables.games)
     generatePopulation.generate_pop()
 
     # add an identifier value for the schedule 
@@ -20,7 +20,7 @@ for x in range(4):
     globalVariables.population.append(globalVariables.schedule)
     #reset
     globalVariables.schedule = {}
-    globalVariables.partialAssignments = {}
+    globalVariables.partialAssignments = []
     globalVariables.pair = []
     globalVariables.preferences = []
     globalVariables.unwanted = []
