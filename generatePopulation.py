@@ -86,12 +86,17 @@ def generate_pop():
                 globalVariables.schedule.update({splitString[0]: slot})
                 globalVariables.gameSlots[str(slot).strip()]["gamemax"] = int(globalVariables.gameSlots[str(slot).strip()]["gamemax"]) - 1
                 globalVariables.games.remove(str(splitString[0]).strip())
+            else:
+                print("MALFORMED INPUTS IN PARTIAL ASSIGNMENT, EXITING ")
+                exit()
         else:
             if slot in globalVariables.practiceSlots:
                 globalVariables.schedule.update({splitString[0]: slot})
                 globalVariables.practiceSlots[str(slot).strip()]["practicemax"] = int(globalVariables.practiceSlots[str(slot).strip()]["practicemax"]) - 1
                 globalVariables.practices.remove(str(splitString[0]).strip())
-
+            else:
+                print("MALFORMED INPUTS IN PARTIAL ASSIGNMENT, EXITING ")
+                exit()
     #choose a random game
     while(len(globalVariables.games) > 0):
         if time.time() > timeout:
