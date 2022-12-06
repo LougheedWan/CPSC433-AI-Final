@@ -3,6 +3,7 @@
 import sys
 import globalVariables
 import random
+import time
 
 def parse_inputs():
     #print("Parsing inputs...")
@@ -76,11 +77,16 @@ def parse_inputs():
 def generate_pop():
     #TODO use parsed data and generate population
     print("Generating valid solutions...")
+    timeout = time.time() + 5
     #start with partial assignments
     for partialAssignments in globalVariables.partialAssignments:
         globalVariables.schedule.update({partialAssignments: globalVariables.partialAssignments[partialAssignments]})
     #choose a random game
     while(len(globalVariables.games) > 0):
+        if time.time() > timeout:
+            print("TIMEOUT REACHED, NO VALID SOLUTION FOUND, ABORTING")
+            exit()
+        print("choosing new game...")
         randomGame = random.choice(globalVariables.games)
         #choose a random gameSlot
         randomGameSlot = random.choice(list(globalVariables.gameSlots))
@@ -89,10 +95,32 @@ def generate_pop():
         #check unwanted
         notValid = False
         notValid = checkUnwanted(tempAssignment)
+        if notValid:
+            continue
         #check notCompatible
         notValid = checkNotCompatible(randomGame, randomGameSlot)
+        if notValid:
+            continue
         #check for gamemax
         notValid = checkGameMax(randomGameSlot)
+        if notValid:
+            continue
+        #check for evening
+        notValid = checkEvening(randomGame, randomGameSlot)
+        if notValid:
+            continue
+        #check for youth games overlap (games only)
+        notValid = checkYouthOverlap(randomGame, randomGameSlot)
+        if notValid:
+            continue
+        #check for tuesdays (games only)
+        notValid = checkTuesdays(randomGameSlot)
+        if notValid:
+            continue
+        #check for special booking
+        notValid = checkSpecialBooking(randomGame, randomGameSlot)
+        if notValid:
+            continue
         if notValid == False:
             print("ALL CHECKS COMPLETED...ADDING GAME TO SCHEDULE")
             globalVariables.schedule.update({randomGame: randomGameSlot})
@@ -105,6 +133,10 @@ def generate_pop():
 
     #now do the same thing for practices:
     while(len(globalVariables.practices) > 0):
+        if time.time() > timeout:
+            print("TIMEOUT REACHED, NO VALID SOLUTION FOUND, ABORTING")
+            exit()
+        print("choosing new practice...")
         randomPractice = random.choice(globalVariables.practices)
         #choose a random practice slot
         randomPracticeSlot = random.choice(list(globalVariables.practiceSlots))
@@ -113,8 +145,20 @@ def generate_pop():
         #check hard constraints
         notValid = False
         notValid = checkUnwanted(tempAssignment)
+        if notValid:
+            continue
         notValid = checkNotCompatible(randomPractice, randomPracticeSlot)
+        if notValid:
+            continue
         notValid = checkPracticeMax(randomPracticeSlot)
+        if notValid:
+            continue
+        notValid = checkEvening(randomPractice, randomPracticeSlot)
+        if notValid:
+            continue
+        notValid = checkSpecialBooking(randomPractice, randomPracticeSlot)
+        if notValid:
+            continue
         if notValid == False:
             print("ALL CHECKS COMPLETED...ADDING PRACTICE TO SCHEDULE")
             globalVariables.schedule.update({randomPractice: randomPracticeSlot})
@@ -183,4 +227,57 @@ def checkPracticeMax(slot):
     if int(currentMax)-1 < 0:
         print("PRACTICEMAX FULL ABORTING")
         return True
+    return False
+
+def checkEvening(game, slot):
+    if "DIV 09" in str(game).strip():
+        if slot != "18;00" | slot != "19:00" | slot !="20:00":
+            print("DIV 9 NOT IN EVENING, ABORTING")
+            return True
+
+        else:
+            return False
+    return False
+
+#ONLY DO THIS CHECK IF YOU ARE MODIFYING GAMES, WE ASSUME WE KNOW THAT THE game PARAMETER IS A GAME AND NOT A PRACTICE 
+def checkYouthOverlap(game, slot):
+    splitString = str(game).strip().split(" ")
+    tier = splitString[1]
+    if ("U15" in tier) | ("U16" in tier) | ("U17" in tier) | ("U19" in tier):
+        for element in globalVariables.schedule:
+            #check to see if element is a youth division
+            if ("U15" in str(element).strip()) | ("U16" in str(element).strip()) | ("U17" in str(element).strip()) | ("U19" in str(element).strip()):
+                #check to see now if it is a practice
+                if "PRC" in str(element).strip():
+                    continue
+                else:
+                    if str(slot).strip() == str(globalVariables.schedule[element]):
+                        print("YOUTH GAME TIERS OVERLAP ABORTING")
+                        return True
+    return False
+
+def checkTuesdays(slot):
+    if str(slot).strip() == "TU, 11:00":
+        print("TUESDAY SLOT SELECTED, ABORTING")
+        return True
+    return False
+
+def checkSpecialBooking(game, slot):
+    if "CMSA U12T1S" in str(game).strip():
+        if str(slot).strip() != "TU, 18:00":
+            return True
+        for element in globalVariables.schedule:
+            if "CSMA U12T1" in str(element).strip():
+                if str(slot).strip() == str(globalVariables.schedule[element]).strip:
+                    print("SPECIAL BOOKING CONFLICT, ABORTING")
+                    return True
+    
+    elif "CMSA U13T1S" in str(game).strip():
+        if str(slot).strip() != "TU, 18:00":
+            return True
+        for element in globalVariables.schedule:
+            if "CSMA U13T1" in str(element).strip():
+                if str(slot).strip() == str(globalVariables.schedule[element]).strip:
+                    print("SPECIAL BOOKING CONFLICT, ABORTING")
+                    return True
     return False
