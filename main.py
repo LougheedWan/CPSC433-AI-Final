@@ -11,6 +11,7 @@ for x in range(4):
     generatePopulation.parse_inputs()
     #print(globalVariables.games)
     generatePopulation.generate_pop()
+    globalVariables.schedule.update({"ID": x})
     globalVariables.population.append(globalVariables.schedule)
     #reset
     globalVariables.schedule = {}
