@@ -70,8 +70,7 @@ def parse_inputs():
         elif switch == "pair":
             globalVariables.pair.append(eachline.strip())
         elif switch == "partialAssignments":
-            splitStr = eachline.strip().split(",")
-            globalVariables.partialAssignments.update({splitStr[0]: (splitStr[1]+splitStr[2])})
+            globalVariables.partialAssignments.append(eachline.strip())
     f.close()
 
 def generate_pop():
@@ -80,7 +79,19 @@ def generate_pop():
     timeout = time.time() + 5
     #start with partial assignments
     for partialAssignments in globalVariables.partialAssignments:
-        globalVariables.schedule.update({partialAssignments: globalVariables.partialAssignments[partialAssignments]})
+        splitString = str(partialAssignments).strip().split(", ")
+        slot = str(splitString[1] + ", " + splitString[2])
+        if "PRC" not in str(partialAssignments).strip():
+            if slot in globalVariables.gameSlots:
+                globalVariables.schedule.update({splitString[0]: slot})
+                globalVariables.gameSlots[str(slot).strip()]["gamemax"] = int(globalVariables.gameSlots[str(slot).strip()]["gamemax"]) - 1
+                globalVariables.games.remove(str(splitString[0]).strip())
+        else:
+            if slot in globalVariables.practiceSlots:
+                globalVariables.schedule.update({splitString[0]: slot})
+                globalVariables.practiceSlots[str(slot).strip()]["practicemax"] = int(globalVariables.practiceSlots[str(slot).strip()]["practicemax"]) - 1
+                globalVariables.practices.remove(str(splitString[0]).strip())
+
     #choose a random game
     while(len(globalVariables.games) > 0):
         if time.time() > timeout:

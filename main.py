@@ -9,12 +9,12 @@ print("Intiating Algorithm")
 #lets generate 4 schedules first...
 for x in range(4):
     generatePopulation.parse_inputs()
-    #print(globalVariables.practices)
+    #print(globalVariables.games)
     generatePopulation.generate_pop()
     globalVariables.population.append(globalVariables.schedule)
     #reset
     globalVariables.schedule = {}
-    globalVariables.partialAssignments = {}
+    globalVariables.partialAssignments = []
     globalVariables.pair = []
     globalVariables.preferences = []
     globalVariables.unwanted = []
