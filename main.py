@@ -44,8 +44,8 @@ population = deleteFacts.delete(globalVariables.population)
 #print("Testing the deletion operation...")
 #print(population)
 
-#TODO: Mutation (Issac)
-
+#TODO: Mutation (Isaac)
+population = mutation.mutate(globalVariables.population)
 #TODO: Crossover (Yianni)
 
 #TODO: (Chirag) Evaluate best solutions and repeat, this TODO also includes:
