@@ -4,8 +4,10 @@ import generatePopulation
 import globalVariables
 import deleteFacts
 import mutation
+import eval
 
 print("Intiating Algorithm")
+globalVariables.popMax = 10
 
 #TODO: Generate our population: Input: textfile and integer inputs; Output: population of N valid schedules (Lougheed)
 #lets generate 4 schedules first..
@@ -50,6 +52,7 @@ population = mutation.mutate(globalVariables.population)
 #TODO: Crossover (Yianni)
 
 #TODO: (Chirag) Evaluate best solutions and repeat, this TODO also includes:
+eval.selectRule(globalVariables.population)
 # 1. determing which class of extension rules to choose (section 2.3.1 f_wert in the paper)
 # do not worry about choosing what individuals (i..e, schedules) to apply the extension rules to - this should be implemented above, unique for each rule.
 # 2. evalutate EVAL, we need to determine what the eval number is based on soft contraints

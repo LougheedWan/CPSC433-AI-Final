@@ -34,3 +34,6 @@ population = []
 
 global schedule
 schedule = {}
+
+global popMax
+popMax = int
