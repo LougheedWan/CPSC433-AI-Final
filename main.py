@@ -3,6 +3,7 @@
 import generatePopulation
 import globalVariables
 import deleteFacts
+import mutation
 
 print("Intiating Algorithm")
 
@@ -51,7 +52,7 @@ population = mutation.mutate(globalVariables.population)
 #TODO: (Chirag) Evaluate best solutions and repeat, this TODO also includes:
 # 1. determing which class of extension rules to choose (section 2.3.1 f_wert in the paper)
 # do not worry about choosing what individuals (i..e, schedules) to apply the extension rules to - this should be implemented above, unique for each rule.
-
-# 2. termination: think about it like this - each operation (deletion, mutation or crossover) will generate a new population of schedules. Each new population equates to a new generation. 
+# 2. evalutate EVAL, we need to determine what the eval number is based on soft contraints
+# 3. termination: think about it like this - each operation (deletion, mutation or crossover) will generate a new population of schedules. Each new population equates to a new generation. 
 # Create a static variable for the number of generations (e.g., generationNum = 20). Once this number of generations is reached, terminate.
 
