@@ -232,7 +232,7 @@ def checkGameMax(slot):
     #print("selected slot--" + slot)
     #print("CHECKING TO SEE IF GAMEMAX IS FULL")
     currentMax = globalVariables.gameSlots[str(slot).strip()]["gamemax"]
-    print(currentMax)
+    #print(currentMax)
     if int(currentMax)-1 < 0:
         print("GAMEMAX FULL ABORTING")
         return True

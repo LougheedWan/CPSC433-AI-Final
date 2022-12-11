@@ -43,16 +43,21 @@ print(globalVariables.population)
 #All functions below should take ONE valid schedule at a time, and we shall repeat the functions for all schedules
 
 #TODO: Deletion (Alexis)
-population = deleteFacts.delete(globalVariables.population)
+#population = deleteFacts.delete(globalVariables.population)
 #print("Testing the deletion operation...")
 #print(population)
 
 #TODO: Mutation (Isaac)
-population = mutation.mutate(globalVariables.population)
+#population = mutation.mutate(globalVariables.population)
 #TODO: Crossover (Yianni)
 
 #TODO: (Chirag) Evaluate best solutions and repeat, this TODO also includes:
 eval.selectRule(globalVariables.population)
+print("RULE SELECTED: " + globalVariables.selection)
+
+eval.setEval(globalVariables.population)
+print("UPDATED SCHEDULE:")
+print(globalVariables.population)
 # 1. determing which class of extension rules to choose (section 2.3.1 f_wert in the paper)
 # do not worry about choosing what individuals (i..e, schedules) to apply the extension rules to - this should be implemented above, unique for each rule.
 # 2. evalutate EVAL, we need to determine what the eval number is based on soft contraints

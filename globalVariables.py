@@ -37,3 +37,6 @@ schedule = {}
 
 global popMax
 popMax = int
+
+global selection
+selection = ""
