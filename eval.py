@@ -22,6 +22,8 @@ def setEval(population):
         gameMinEval = 0
         practiceMinEval = 0
         prefEval = 0
+        pairEval = 0
+        sectionEval = 0
         for element in schedule:
             #check to see if it is a game:
             if "PRC" not in element and "OPN" not in element:
@@ -72,5 +74,33 @@ def setEval(population):
             if str(timeInSchedule).strip() != formatedString:
                 print("pref not achieved")
                 prefEval = prefEval + int(splitString[3])
+        
+        #check Paired
+        for pairs in globalVariables.pair:
+            splitString = str(pairs).split(", ")
+            ID1 = splitString[0]
+            ID2 = splitString[1]
+            slot1 = schedule.get(ID1)
+            slot2 = schedule.get(ID2)
+            print(slot1)
+            print(slot2)
+            if str(slot1).strip() != str(slot2).strip():
+                print("Pair not achieved")
+                pairEval = pairEval + globalVariables.evalVariables["notpaired"]
+        #check section
+        #YIANNI AND ISSAC CODE HERE
+        #YOU ARE IN A FOR LOOP WITH THE VARIABLE schedule AS THE ACTIVE SCHEDULE YOU ARE WORKING ON, PLEASE UTILZE THIS VARIABE TO INSURE YOU ARE IN THE RIGHT SCHEDULE
+        #UPDATE THE sectionEval VARIABLE WITH THE PROPER EVAL NUMBER AFTER EVAUATING THE ENTIRE POPULATION. sectionEval WILL REPRESENT THE EVAL NUMBER OF THIS SPECIFIC EVAL FUNCTION FOR schedule AND WILL AUTO ZERO OUT WHEN THE LOOP RESETS ONTO A NEW SCHEDULE
+        #YOU ARE DONE ONCE YOU HAVE SUCCESSFULLY UPDATED sectionEval WITH THE PROPER INTEGER EVAL FUNCTION (FOR EACH SCHEDULE OF COURSE), I WILL DO THE REST OF THE WORK ON MONDAY
+        #CHECK THE PROJECT PROBLEM FOR THE LOGIC NEEDED TO DO THIS EVAL FUNCTION (PG 6 AT THE BOTTOM). I AM THINKING IT IS ALONG THE LINES OF LOOPING THROUGH OUR SCHEDULE... THIS EVAL HAS NOTHING TO DO WITH THE INPUT TEXT FILE
+        #THANK YOU!
+        #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        #BEGIN CODE HERE ENSURE YOU ARE ALIGNED WITH THE COMMENTS (PYTHON IS ALL ABOUT INDENTATION)
+
+        #CHECK sectionEval
+        print("SECTION EVAL VARIABLE: " + str(sectionEval))
+
+        #END CODE HERE
+        #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         #update Eval
-        schedule["Eval"] = ((gameMinEval + practiceMinEval) * globalVariables.evalVariables["minfilled"]) + (prefEval * globalVariables.evalVariables["pref"])
+        schedule["Eval"] = ((gameMinEval + practiceMinEval) * globalVariables.evalVariables["minfilled"]) + (prefEval * globalVariables.evalVariables["pref"]) + (pairEval * globalVariables.evalVariables["pair"])
