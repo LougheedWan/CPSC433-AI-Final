@@ -21,6 +21,7 @@ def setEval(population):
     for schedule in population:
         gameMinEval = 0
         practiceMinEval = 0
+        prefEval = 0
         for element in schedule:
             #check to see if it is a game:
             if "PRC" not in element and "OPN" not in element:
@@ -62,5 +63,14 @@ def setEval(population):
         gameArray = []
         practiceArray = []    
 
+        #check Preferences
+        for preferences in globalVariables.preferences:
+            splitString = str(preferences).split(", ")
+            Id = splitString[2]
+            timeInSchedule = schedule[Id]
+            formatedString = splitString[0] + ", " + splitString[1]
+            if str(timeInSchedule).strip() != formatedString:
+                print("pref not achieved")
+                prefEval = prefEval + int(splitString[3])
         #update Eval
-        schedule["Eval"] = (gameMinEval + practiceMinEval) * globalVariables.evalVariables["minfilled"]
+        schedule["Eval"] = ((gameMinEval + practiceMinEval) * globalVariables.evalVariables["minfilled"]) + (prefEval * globalVariables.evalVariables["pref"])
