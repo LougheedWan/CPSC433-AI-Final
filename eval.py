@@ -69,7 +69,7 @@ def setEval(population):
         for preferences in globalVariables.preferences:
             splitString = str(preferences).split(", ")
             Id = splitString[2]
-            timeInSchedule = schedule[Id]
+            timeInSchedule = schedule.get(Id)
             formatedString = splitString[0] + ", " + splitString[1]
             if str(timeInSchedule).strip() != formatedString:
                 print("pref not achieved")
