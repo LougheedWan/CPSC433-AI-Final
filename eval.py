@@ -96,7 +96,27 @@ def setEval(population):
         #THANK YOU!
         #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         #BEGIN CODE HERE ENSURE YOU ARE ALIGNED WITH THE COMMENTS (PYTHON IS ALL ABOUT INDENTATION)
-
+        #CHECK sectionEval
+        sch_v = schedule.keys()
+        # get all the keys in the schedule (league, age, div)
+        already_check = []
+        for v in sch_v: # loop through all keys
+            for g in sch_v: # loop through all keys again
+                # has to be a game
+                if "PRC" not in v and "PRC" not in g:
+                    if "OPN" not in v and "OPN" not in g:
+                        sv = v.split()
+                        sg = g.split()
+                        if len(sg) > 1 and len(sv) > 1:
+                            vv = sv[1]
+                            gg = sg[1]
+                            if v != g and vv == gg: # check to make sure we are not checking the same g/p
+                                # if the time is the same and they have not already been checked
+                                if str(schedule[v]) == str(schedule[g]) and v not in already_check and g not in already_check:
+                                    print("Overlapping schedule found: " + v + " and " + g + " at " + schedule[v])
+                                    sectionEval = sectionEval + globalVariables.evalVariables["section"]
+                                    already_check.append(v)
+                                    already_check.append(g)
         #CHECK sectionEval
         print("SECTION EVAL VARIABLE: " + str(sectionEval))
 
