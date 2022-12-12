@@ -123,4 +123,9 @@ def setEval(population):
         #END CODE HERE
         #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         #update Eval
-        schedule["Eval"] = ((gameMinEval + practiceMinEval) * globalVariables.evalVariables["minfilled"]) + (prefEval * globalVariables.evalVariables["pref"]) + (pairEval * globalVariables.evalVariables["pair"])
+        schedule["Eval"] = ((gameMinEval + practiceMinEval) * globalVariables.evalVariables["minfilled"]) + (prefEval * globalVariables.evalVariables["pref"]) + (pairEval * globalVariables.evalVariables["pair"]) + (sectionEval * globalVariables.evalVariables["secdiff"])
+
+        #check for perfect answer
+        if schedule["Eval"] == 0:
+            #FOUND PEFECT ANSWER
+            globalVariables.perfectAnswer = True

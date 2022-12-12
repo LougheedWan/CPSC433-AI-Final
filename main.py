@@ -8,7 +8,6 @@ import eval
 
 print("Intiating Algorithm")
 globalVariables.popMax = 10
-
 #TODO: Generate our population: Input: textfile and integer inputs; Output: population of N valid schedules (Lougheed)
 #lets generate 4 schedules first..
 # using this number as popnum to keep track of the number of facts in a population would be convenient
@@ -37,6 +36,9 @@ for x in range(4):
 #final parse to reset back to original data
 generatePopulation.parse_inputs()
 print(globalVariables.population)
+#determine generations before termination
+for x in range (10):
+    
 #Example output format: output = {"CSMA U13T3 DIV 01": "MO, 10:00", "CSMA U13T3 DIV 01 PRC 01": "TU, 10:00" .... "EVAL": 30}
 #We use a dictonary to store ONE valid schedule, our population will be an array of n length of these dictonaries.
 #NOTE: all data is now inputted into different data structures defined in globalVariables.py, this should help with the Evaluation of best solutions.
@@ -52,12 +54,48 @@ print(globalVariables.population)
 #TODO: Crossover (Yianni)
 
 #TODO: (Chirag) Evaluate best solutions and repeat, this TODO also includes:
-eval.selectRule(globalVariables.population)
-print("RULE SELECTED: " + globalVariables.selection)
+    eval.selectRule(globalVariables.population)
+    print("RULE SELECTED: " + globalVariables.selection)
+    if globalVariables.selection.strip() == "delete":
+        print("Deleting")
+        #add delete function here
+    elif globalVariables.selection.strip() == "mutate":
+        print("Mutating")
+        #add mutate function here
+    elif globalVariables.selection.strip() == "cross":
+        print("Crossing over")
+        #add crossover function here
+    #evaluate population
+    eval.setEval(globalVariables.population)
+    #check for perfect answer flag
+    if globalVariables.perfectAnswer == True:
+        print("FOUND PERFECT ANSWER... TERMINATING")
+        break
+    print("UPDATED SCHEDULE:")
+    print(globalVariables.population)
 
-eval.setEval(globalVariables.population)
-print("UPDATED SCHEDULE:")
-print(globalVariables.population)
+#find lowest eval value of final generation to output
+bestAnswerID = ""
+bestAnswer = ""
+for schedule in globalVariables.population:
+    if bestAnswerID == "":
+        bestAnswerID = schedule.get("ID")
+        bestAnswer = schedule.get("Eval")
+
+    if int(bestAnswer) > schedule.get("Eval"):
+        bestAnswerID = schedule.get("ID")
+        bestAnswer = schedule.get("Eval")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("BEST GENERATED SCHEDULE:")
+finalAnswer = globalVariables.population[int(bestAnswerID)]
+for answer in finalAnswer:
+    print(str(answer) + ": " + str(finalAnswer[answer]))
 # 1. determing which class of extension rules to choose (section 2.3.1 f_wert in the paper)
 # do not worry about choosing what individuals (i..e, schedules) to apply the extension rules to - this should be implemented above, unique for each rule.
 # 2. evalutate EVAL, we need to determine what the eval number is based on soft contraints

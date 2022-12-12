@@ -40,3 +40,6 @@ popMax = int
 
 global selection
 selection = ""
+
+global perfectAnswer
+perfectAnswer = False
