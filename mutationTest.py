@@ -2,9 +2,11 @@ import generatePopulation
 import globalVariables
 import math
 import random
+import time 
 
 def mutate (currentPop):
     print("STARTING MUTATION...")
+    timeout = time.time() + 5
 
     population  = currentPop
     print("PRINTING THE BEFORE POPULATION...\n", population)
@@ -25,6 +27,9 @@ def mutate (currentPop):
     id = int(popNum) + 1
 
     for schedule in mutatePop: 
+        if time.time() > timeout:
+            print("TIMEOUT REACHED, MUTATION, ABORTING")
+            exit()
         # step 2. mutate a game in the schedule 
         # randomly select a game or a practice to mutate 
         keyVal = key, val = random.choice(list(schedule.items()))    # keyVal is a tuple e.g., ('CMSA U17T1 DIV 01', 'MO, 9:00')
