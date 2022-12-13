@@ -134,6 +134,7 @@ def generate_pop():
         if notValid:
             continue
         #check for special booking
+        addPractice()
         notValid = checkSpecialBooking(randomGame, randomGameSlot)
         if notValid:
             continue
@@ -256,8 +257,8 @@ def checkPracticeMax(slot):
     return False
 
 def checkEvening(game, slot):
-    if "DIV 09" in str(game).strip():
-        if slot != "18;00" | slot != "19:00" | slot !="20:00":
+    if "DIV 9" in str(game).strip():
+        if str(slot).strip() != "18:00" or str(slot).strip() != "19:00" or str(slot).strip() !="20:00":
             print("DIV 9 NOT IN EVENING, ABORTING")
             return True
 
@@ -307,3 +308,10 @@ def checkSpecialBooking(game, slot):
                     print("SPECIAL BOOKING CONFLICT, ABORTING")
                     return True
     return False
+
+def addPractice():
+    for game in globalVariables.games:
+        print(game)
+        if "CMSA U13T1 DIV 01" in game:
+            print("ADDING special practice")
+            globalVariables.practices.append("CMSA U13T1S DIV 01 PRC 01")

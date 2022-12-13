@@ -9,6 +9,8 @@ def mutate (currentPop):
     timeout = time.time() + 5
 
     population  = currentPop
+
+    oldPop = currentPop
     print("PRINTING THE BEFORE POPULATION...\n", population)
     popNum = len(population)
     popMax = globalVariables.popMax
@@ -29,6 +31,7 @@ def mutate (currentPop):
     for schedule in mutatePop: 
         if time.time() > timeout:
             print("TIMEOUT REACHED, MUTATION, ABORTING")
+            return oldPop
             exit()
         # step 2. mutate a game in the schedule 
         # randomly select a game or a practice to mutate 
