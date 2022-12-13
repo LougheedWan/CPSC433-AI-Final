@@ -232,7 +232,7 @@ def checkGameMax(slot):
     #print("selected slot--" + slot)
     #print("CHECKING TO SEE IF GAMEMAX IS FULL")
     currentMax = globalVariables.gameSlots[str(slot).strip()]["gamemax"]
-    print(currentMax)
+    #print(currentMax)
     if int(currentMax)-1 < 0:
         print("GAMEMAX FULL ABORTING")
         return True
@@ -265,7 +265,7 @@ def checkYouthOverlap(game, slot):
             #check to see if element is a youth division
             if ("U15" in str(element).strip()) | ("U16" in str(element).strip()) | ("U17" in str(element).strip()) | ("U19" in str(element).strip()):
                 #check to see now if it is a practice
-                if "PRC" in str(element).strip():
+                if "PRC" in str(element).strip() or "OPN" in str(element).strip():
                     continue
                 else:
                     if str(slot).strip() == str(globalVariables.schedule[element]):
