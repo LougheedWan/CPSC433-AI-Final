@@ -69,10 +69,19 @@ def mutate (currentPop):
             chkSpecBooking = True
 
             firstIter = True
-            while((isSameSlot == True) or (isGameSlot == False) or (MaxExceed == True) or (Unwanted == True) or (NotCompatible == True) or (isEvening == True) or (YouthOverlap == True) or (chkTues == True) or (chkSpecBooking == True)):
+            evalOrid = True
+            while((isSameSlot == True) or (isGameSlot == False) or (MaxExceed == True) or (Unwanted == True) or (NotCompatible == True) or (isEvening == True) or (YouthOverlap == True) or (chkTues == True) or (chkSpecBooking == True) or (evalOrid == False)):
                 newKeyVal = key, val = random.choice(list(schedule.items()))
                 newTempGameSlot = newKeyVal[1]
+
                 print("newTempGameSlot AGAIN: ", newTempGameSlot)
+
+                # check if eval or id items are chosen
+                if((newKeyVal[0].find('Eval') != -1) or (newKeyVal[0].find('ID') != -1)):
+                    print("selected an eval or an id")
+                    continue
+                else:
+                    evalOrid = False
                     
                 firstIter = False
                 
@@ -188,14 +197,23 @@ def mutate (currentPop):
             chkSpecBooking = True
 
             firstIter = True
+
+            evalOrid = True
             while((isSameSlot == True) or (isPrcSlot == False) or (MaxExceed == True) or (Unwanted == True) or (NotCompatible == True) or
-                 (isEvening == True) or (chkSpecBooking == True)):
+                 (isEvening == True) or (chkSpecBooking == True)) or (evalOrid == False):
                 if(firstIter == False):
                     newKeyVal = key, val = random.choice(list(schedule.items()))
                     newTempPrcSlot = newKeyVal[1]
                     print("newTempPrcSlot AGAIN: ", newTempPrcSlot)
                 
                 firstIter = False
+
+                # check if eval or id items are chosen
+                if((newKeyVal[0].find('Eval') != -1) or (newKeyVal[0].find('ID') != -1)):
+                    print("selected an eval or an id")
+                    continue
+                else:
+                    evalOrid = False
                 
                 # make sure the same slot is not chosen
                 if(newTempPrcSlot == oldPrcSlot):
