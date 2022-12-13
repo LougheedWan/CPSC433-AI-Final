@@ -13,7 +13,8 @@ def mutate (currentPop):
     
     # step 1. select facts to mutate from the population
     # mutateNum is the number of facts in the population that will be mutated
-    mutateNum = random.randint(1, (popMax - popNum)) 
+    mutateNum = random.randint(1, popNum)
+    print("MUTATENUM: ", mutateNum)
 
     #mutateNum = 1
 
@@ -21,7 +22,7 @@ def mutate (currentPop):
     mutatePop = random.sample(population, mutateNum)
     print("MUTATEPOP...\n", mutatePop)
 
-    id = popNum
+    id = int(popNum)
 
     for schedule in mutatePop: 
         # step 2. mutate a game in the schedule 
@@ -68,11 +69,11 @@ def mutate (currentPop):
             chkSpecBooking = True
 
             firstIter = True
-            while((isSameSlot == True) or (isPrcSlot == False) or (MaxExceed == True) or (Unwanted == True) or (NotCompatible == True) or (isEvening == True) or (YouthOverlap == True) or (chkTues == True) or (chkSpecBooking == True)):
-                    newKeyVal = key, val = random.choice(list(schedule.items()))
-                    newTempGameSlot = newKeyVal[1]
-                    print("newTempGameSlot AGAIN: ", newTempGameSlot)
-                
+            while((isSameSlot == True) or (isGameSlot == False) or (MaxExceed == True) or (Unwanted == True) or (NotCompatible == True) or (isEvening == True) or (YouthOverlap == True) or (chkTues == True) or (chkSpecBooking == True)):
+                newKeyVal = key, val = random.choice(list(schedule.items()))
+                newTempGameSlot = newKeyVal[1]
+                print("newTempGameSlot AGAIN: ", newTempGameSlot)
+                    
                 firstIter = False
                 
                 # make sure the same slot is not chosen
@@ -158,7 +159,8 @@ def mutate (currentPop):
             # update the schedule with the mutated pair 
             newSchedule = schedule.update({mutateGame: newGameSlot})   
             # give this new schedule a new ID
-            newSchedule["ID"] = id
+            print(id)
+            newSchedule["ID"] = str(id)
 
             print("NEWSCHED GAME MUTATED:\n", schedule)   
 
@@ -257,12 +259,12 @@ def mutate (currentPop):
 
             newPrcSlot = newTempPrcSlot
             #TODO: increase the practicemax value of newPrcSlot
-            
+
             newSchedule = {}
             # update the schedule with the mutated pair 
             schedule.update({mutatePrc: newPrcSlot})   
             # give this new schedule a new ID
-            newSchedule["ID"] = id
+            newSchedule["ID"] = str(id)
 
             print("NEWSCHED PRACTICE MUTATED:\n", schedule)
         
