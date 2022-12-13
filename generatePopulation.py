@@ -4,6 +4,7 @@ import sys
 import globalVariables
 import random
 import time
+import re
 
 def parse_inputs():
     #print("Parsing inputs...")
@@ -76,7 +77,7 @@ def parse_inputs():
 def generate_pop():
     #TODO use parsed data and generate population
     print("Generating valid solutions...")
-    timeout = time.time() + 5
+    timeout = time.time() + 4
     #start with partial assignments
     for partialAssignments in globalVariables.partialAssignments:
         splitString = str(partialAssignments).strip().split(", ")
@@ -107,6 +108,8 @@ def generate_pop():
         #choose a random gameSlot
         randomGameSlot = random.choice(list(globalVariables.gameSlots))
         tempAssignment = str(randomGame + ", " + randomGameSlot)
+        print("TEMP ASSIGN:" + str(tempAssignment))
+        print("EXISTING SCHEDULE: " + str(globalVariables.schedule.get("CMSA U10T5 DIV 01")))
         #check hard constraints of assignment
         #check unwanted
         notValid = False
@@ -134,7 +137,7 @@ def generate_pop():
         if notValid:
             continue
         #check for special booking
-        addPractice()
+        #addPractice()
         notValid = checkSpecialBooking(randomGame, randomGameSlot)
         if notValid:
             continue
@@ -251,13 +254,16 @@ def checkPracticeMax(slot):
     for element in globalVariables.schedule:
         if str(globalVariables.schedule[element]).strip() == str(slot).strip():
             counter = counter +1
+    #print("COUNTER:" + str(counter))
+    #print(str(slot))
+    #print(globalVariables.schedule)
     if (counter +1) > int(currentMax):
         print("PRACTICEMAX FULL ABORTING")
         return True
     return False
 
 def checkEvening(game, slot):
-    if "DIV 9" in str(game).strip():
+    if re.search("\b"+"DIV 9"+r"\b",str(game.strip())):
         if str(slot).strip() != "18:00" or str(slot).strip() != "19:00" or str(slot).strip() !="20:00":
             print("DIV 9 NOT IN EVENING, ABORTING")
             return True

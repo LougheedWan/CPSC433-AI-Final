@@ -38,3 +38,8 @@ Preferences:
 Pair:
 
 Partial assignments:
+CMSA U10T1 DIV 01, MO, 10:00 
+CMSA U10T2 DIV 01, MO, 10:00
+CMSA U10T3 DIV 01, MO, 10:00
+CMSA U10T4 DIV 01, MO, 9:00
+

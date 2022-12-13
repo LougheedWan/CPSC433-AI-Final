@@ -13,7 +13,7 @@ globalVariables.popMax = 50
 #TODO: Generate our population: Input: textfile and integer inputs; Output: population of N valid schedules (Lougheed)
 #lets generate 4 schedules first..
 # using this number as popnum to keep track of the number of facts in a population would be convenient
-for x in range(20):
+for x in range(4):
     generatePopulation.parse_inputs()
     #print(globalVariables.games)
     generatePopulation.generate_pop()
@@ -39,7 +39,7 @@ for x in range(20):
 generatePopulation.parse_inputs()
 print(globalVariables.population)
 #determine generations before termination
-for x in range (10):
+for x in range (50):
     
 #Example output format: output = {"CSMA U13T3 DIV 01": "MO, 10:00", "CSMA U13T3 DIV 01 PRC 01": "TU, 10:00" .... "EVAL": 30}
 #We use a dictonary to store ONE valid schedule, our population will be an array of n length of these dictonaries.

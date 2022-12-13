@@ -78,7 +78,7 @@ def mutate (currentPop):
 
             firstIter = True
             evalOrid = True
-            while((isSameSlot == True) or (isGameSlot == False) or (MaxExceed == True) or (Unwanted == True) or (NotCompatible == True) or (isEvening == True) or (YouthOverlap == True) or (chkTues == True) or (chkSpecBooking == True) or (evalOrid == False)):
+            while((isSameSlot == True) or (isGameSlot == False) or (MaxExceed == True) or (Unwanted == True) or (NotCompatible == True) or (isEvening == True) or (YouthOverlap == True) or (chkTues == True) or (chkSpecBooking == True) or (evalOrid == True)):
                 newKeyVal = key, val = random.choice(list(schedule.items()))
                 newTempGameSlot = newKeyVal[1]
 
@@ -207,9 +207,9 @@ def mutate (currentPop):
             firstIter = True
 
             evalOrid = True
-            while((isSameSlot == True) or (isPrcSlot == False) or (MaxExceed == True) or (Unwanted == True) or (NotCompatible == True) or
-                 (isEvening == True) or (chkSpecBooking == True)) or (evalOrid == False):
-                if(firstIter == False):
+            while((isSameSlot == True) or (isPrcSlot == False) or (MaxExceed == True)or (Unwanted == True) or (NotCompatible == True) or
+                 (isEvening == True) or (chkSpecBooking == True) or (evalOrid == True)):
+                if(firstIter == True):
                     newKeyVal = key, val = random.choice(list(schedule.items()))
                     newTempPrcSlot = newKeyVal[1]
                     print("newTempPrcSlot AGAIN: ", newTempPrcSlot)
