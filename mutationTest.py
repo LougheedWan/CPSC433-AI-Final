@@ -22,7 +22,7 @@ def mutate (currentPop):
     mutatePop = random.sample(population, mutateNum)
     print("MUTATEPOP...\n", mutatePop)
 
-    id = int(popNum)
+    id = int(popNum) + 1
 
     for schedule in mutatePop: 
         # step 2. mutate a game in the schedule 
@@ -155,12 +155,12 @@ def mutate (currentPop):
             newGameSlot = newTempGameSlot
             #TODO: increase the practicemax value of newPrcSlot 
             
-            newSchedule = {}
             # update the schedule with the mutated pair 
-            newSchedule = schedule.update({mutateGame: newGameSlot})   
+            schedule.update({mutateGame: newGameSlot})
+            tempSchedule = schedule
+            tempSchedule["ID"] = id
             # give this new schedule a new ID
-            print(id)
-            newSchedule["ID"] = str(id)
+            #schedule["ID"] = id
 
             print("NEWSCHED GAME MUTATED:\n", schedule)   
 
@@ -259,16 +259,17 @@ def mutate (currentPop):
 
             newPrcSlot = newTempPrcSlot
             #TODO: increase the practicemax value of newPrcSlot
-
-            newSchedule = {}
             # update the schedule with the mutated pair 
             schedule.update({mutatePrc: newPrcSlot})   
+            tempSchedule = schedule
+            tempSchedule["ID"] = id
             # give this new schedule a new ID
-            newSchedule["ID"] = str(id)
+            #schedule["ID"] = id
 
             print("NEWSCHED PRACTICE MUTATED:\n", schedule)
         
-        population.append(schedule)
+        population.append(tempSchedule)
+
         id = id + 1
     
     print("MUTATION DONE")
