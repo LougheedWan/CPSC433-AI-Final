@@ -78,7 +78,7 @@ def mutate (currentPop):
 
             firstIter = True
             evalOrid = True
-            while((isSameSlot == True) or (isGameSlot == False) or (MaxExceed == True) or (Unwanted == True) or (NotCompatible == True) or (isEvening == True) or (YouthOverlap == True) or (chkTues == True) or (chkSpecBooking == True) or (evalOrid == False)):
+            while((isSameSlot == True) or (isGameSlot == False) or (MaxExceed == True) or (Unwanted == True) or (NotCompatible == True) or (isEvening == True) or (YouthOverlap == True) or (chkTues == True) or (chkSpecBooking == True) or (evalOrid == True)):
                 newKeyVal = key, val = random.choice(list(schedule.items()))
                 newTempGameSlot = newKeyVal[1]
 
@@ -168,6 +168,8 @@ def mutate (currentPop):
                 else:
                     print("spec booking check passed")
                     chkSpecBooking = False
+                    print(isSameSlot, isGameSlot, MaxExceed, Unwanted, NotCompatible, isEvening, YouthOverlap, chkTues, chkSpecBooking, evalOrid)
+                    
 
             newGameSlot = newTempGameSlot
             #TODO: increase the practicemax value of newPrcSlot 
@@ -208,7 +210,7 @@ def mutate (currentPop):
 
             evalOrid = True
             while((isSameSlot == True) or (isPrcSlot == False) or (MaxExceed == True) or (Unwanted == True) or (NotCompatible == True) or
-                 (isEvening == True) or (chkSpecBooking == True)) or (evalOrid == False):
+                 (isEvening == True) or (chkSpecBooking == True)) or (evalOrid == True):
                 if(firstIter == False):
                     newKeyVal = key, val = random.choice(list(schedule.items()))
                     newTempPrcSlot = newKeyVal[1]
@@ -282,6 +284,7 @@ def mutate (currentPop):
                 else:
                     print("special booking check passed")
                     chkSpecBooking = False
+                    print(isSameSlot, isPrcSlot, MaxExceed, Unwanted, NotCompatible, isEvening, chkSpecBooking, evalOrid)
                 
 
             newPrcSlot = newTempPrcSlot
