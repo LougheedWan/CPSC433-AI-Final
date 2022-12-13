@@ -56,12 +56,18 @@ def mutate (currentPop):
             
             isSameSlot = True
             isGameSlot = False
+
             MaxExceed = True
             Unwanted = True
             NotCompatible = True
+
+            isEvening = True
+            YouthOverlap = True
+            chkTues = True
+            chkSpecBooking = True
+
             firstIter = True
-            while((isSameSlot == True) or (isGameSlot == False) or (MaxExceed == True) or (Unwanted == True) or (NotCompatible == True)):
-                if(firstIter == False):
+            while((isSameSlot == True) or (isPrcSlot == False) or (MaxExceed == True) or (Unwanted == True) or (NotCompatible == True) or (isEvening == True) or (YouthOverlap == True) or (chkTues == True) or (chkSpecBooking == True)):
                     newKeyVal = key, val = random.choice(list(schedule.items()))
                     newTempGameSlot = newKeyVal[1]
                     print("newTempGameSlot AGAIN: ", newTempGameSlot)
@@ -111,7 +117,39 @@ def mutate (currentPop):
                     print("not compatible check passed")
                     NotCompatible = False
                     print(isSameSlot, isGameSlot, MaxExceed, Unwanted, NotCompatible)
-            
+
+                # evening check
+                if(generatePopulation.checkEvening(mutateGame, newTempGameSlot)):
+                    print("evening check failed")
+                    continue
+                else:
+                    print("evening check passed")
+                    isEvening = False
+                
+                # youth games check
+                if(generatePopulation.checkYouthOverlap(mutateGame, newTempGameSlot)):
+                    print("youth overlap check failed")
+                    continue
+                else:
+                    print("youth overlap check passed")
+                    YouthOverlap = False
+
+                # Tuesday check
+                if(generatePopulation.checkTuesdays(newTempGameSlot)):
+                    print("Tues check failed")
+                    continue
+                else:
+                    print("Tues check passed")
+                    chkTues = False  
+                
+                # Special bookings check
+                if(generatePopulation.checkSpecialBooking(mutateGame, newTempGameSlot)):
+                    print("spec booking check failed")
+                    continue
+                else:
+                    print("spec booking check passed")
+                    chkSpecBooking = False
+
             newGameSlot = newTempGameSlot
             #TODO: increase the practicemax value of newPrcSlot 
             
@@ -135,11 +173,17 @@ def mutate (currentPop):
             
             isSameSlot = True
             isPrcSlot = False
+
             MaxExceed = True
             Unwanted = True
             NotCompatible = True
+
+            isEvening = True
+            chkSpecBooking = True
+
             firstIter = True
-            while((isSameSlot == True) or (isPrcSlot == False) or (MaxExceed == True) or (Unwanted == True) or (NotCompatible == True)):
+            while((isSameSlot == True) or (isPrcSlot == False) or (MaxExceed == True) or (Unwanted == True) or (NotCompatible == True) or
+                 (isEvening == True) or (chkSpecBooking == True)):
                 if(firstIter == False):
                     newKeyVal = key, val = random.choice(list(schedule.items()))
                     newTempPrcSlot = newKeyVal[1]
@@ -190,7 +234,24 @@ def mutate (currentPop):
                     print("not compatible check passed")
                     NotCompatible = False
                     print(isSameSlot, isPrcSlot, MaxExceed, Unwanted, NotCompatible)
-            
+                
+                # evening check
+                if(generatePopulation.checkEvening(mutatePrc, newTempPrcSlot)):
+                    print("evening check failed")
+                    continue
+                else:
+                    print("evening check passed")
+                    isEvening = False
+                
+                # special bookings check
+                if(generatePopulation.checkSpecialBooking(mutatePrc, newTempPrcSlot)):
+                    print("special booking check failed")
+                    continue
+                else:
+                    print("special booking check passed")
+                    chkSpecBooking = False
+                
+
             newPrcSlot = newTempPrcSlot
             #TODO: increase the practicemax value of newPrcSlot 
             
@@ -199,7 +260,7 @@ def mutate (currentPop):
             #TODO: give this new schedule a new ID
 
             print("NEWSCHED PRACTICE MUTATED:\n", schedule)
-            
+        
         population.append(schedule)
     
     print("MUTATION DONE")
