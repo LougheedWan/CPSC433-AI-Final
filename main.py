@@ -5,6 +5,7 @@ import globalVariables
 import deleteFacts
 import mutationTest
 import eval
+import crossover
 
 print("Intiating Algorithm")
 # popmax is the maximum number of facts in the population; this is fixed
@@ -71,6 +72,8 @@ for x in range (4):
     print("RULE SELECTED: " + globalVariables.selection)
     if globalVariables.selection.strip() == "delete":
         print("Deleting")
+        DeletedPopulation = deleteFacts.delete(globalVariables.population)
+        globalVariables.population =DeletedPopulation
         #add delete function here
        
     elif globalVariables.selection.strip() == "mutate":
@@ -80,6 +83,8 @@ for x in range (4):
         #add mutate function here
     elif globalVariables.selection.strip() == "cross":
         print("Crossing over")
+        CrossOverPopulation = crossover.cross(globalVariables.population)
+        globalVariables.population = CrossOverPopulation
         #add crossover function here
     #evaluate population
     eval.setEval(globalVariables.population)
