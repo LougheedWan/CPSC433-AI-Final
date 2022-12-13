@@ -45,28 +45,23 @@ for x in range (10):
 #NOTE: all data is now inputted into different data structures defined in globalVariables.py, this should help with the Evaluation of best solutions.
 #All functions below should take ONE valid schedule at a time, and we shall repeat the functions for all schedules
 
-<<<<<<< HEAD
 #TODO: Deletion
-# deletionFacts returns a new generation of population after the delete operation is applied to the current one 
+#deletionFacts returns a new generation of population after the delete operation is applied to the current one 
 #DeletePopulation = deleteFacts.delete(globalVariables.population)
-=======
 #TODO: Deletion (Alexis)
 #population = deleteFacts.delete(globalVariables.population)
->>>>>>> 778aee613632fd18c534ce9eb10c07315d7a24cc
 #print("Testing the deletion operation...")
 #print(DeletePopulation)
 
-<<<<<<< HEAD
 
 #TODO: Mutation 
-MutatedPopulation = mutationTest.mutate(globalVariables.population)
+
 #print(MutatedPopulation)
 
 #TODO: Crossover 
 
 #TODO: Evaluate best solutions and repeat, this TODO also includes:
 # eval.selectRule(globalVariables.population)
-=======
 #TODO: Mutation (Isaac)
 #population = mutation.mutate(globalVariables.population)
 #TODO: Crossover (Yianni)
@@ -77,6 +72,8 @@ MutatedPopulation = mutationTest.mutate(globalVariables.population)
     if globalVariables.selection.strip() == "delete":
         print("Deleting")
         #add delete function here
+        MutatedPopulation = mutationTest.mutate(globalVariables.population)
+        globalVariables.population = MutatedPopulation
     elif globalVariables.selection.strip() == "mutate":
         print("Mutating")
         #add mutate function here
@@ -116,7 +113,6 @@ print("BEST GENERATED SCHEDULE:")
 finalAnswer = globalVariables.population[bestAnswerID]
 for answer in finalAnswer:
     print(str(answer) + ": " + str(finalAnswer[answer]))
->>>>>>> 778aee613632fd18c534ce9eb10c07315d7a24cc
 # 1. determing which class of extension rules to choose (section 2.3.1 f_wert in the paper)
 # do not worry about choosing what individuals (i..e, schedules) to apply the extension rules to - this should be implemented above, unique for each rule.
 # 2. evalutate EVAL, we need to determine what the eval number is based on soft contraints
