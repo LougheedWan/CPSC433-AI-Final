@@ -30,15 +30,15 @@ for x in range(4):
     globalVariables.notCompatible = []
     globalVariables.practices = []
     globalVariables.games = []
-    globalVariables.practiceSlots = {}
-    globalVariables.gameSlots = {}
+    #globalVariables.practiceSlots = {}
+    #globalVariables.gameSlots = {}
     globalVariables.evalVariables = {}
     
 #final parse to reset back to original data
 generatePopulation.parse_inputs()
 print(globalVariables.population)
 #determine generations before termination
-for x in range (10):
+for x in range (4):
     
 #Example output format: output = {"CSMA U13T3 DIV 01": "MO, 10:00", "CSMA U13T3 DIV 01 PRC 01": "TU, 10:00" .... "EVAL": 30}
 #We use a dictonary to store ONE valid schedule, our population will be an array of n length of these dictonaries.
@@ -76,7 +76,6 @@ for x in range (10):
     elif globalVariables.selection.strip() == "mutate":
         print("Mutating")
         MutatedPopulation = mutationTest.mutate(globalVariables.population)
-        globalVariables.population = []
         globalVariables.population = MutatedPopulation
         #add mutate function here
     elif globalVariables.selection.strip() == "cross":

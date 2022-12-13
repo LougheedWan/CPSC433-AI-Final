@@ -141,7 +141,7 @@ def generate_pop():
             print("ALL CHECKS COMPLETED...ADDING GAME TO SCHEDULE")
             globalVariables.schedule.update({randomGame: randomGameSlot})
             #decrease gamemax
-            globalVariables.gameSlots[str(randomGameSlot).strip()]["gamemax"] = int(globalVariables.gameSlots[str(randomGameSlot).strip()]["gamemax"]) - 1
+            #globalVariables.gameSlots[str(randomGameSlot).strip()]["gamemax"] = int(globalVariables.gameSlots[str(randomGameSlot).strip()]["gamemax"]) - 1
             #print(globalVariables.gameSlots[str(randomGameSlot).strip()]["gamemax"])
             #remove game from game slots
             globalVariables.games.remove(str(randomGame).strip())
@@ -179,7 +179,7 @@ def generate_pop():
             print("ALL CHECKS COMPLETED...ADDING PRACTICE TO SCHEDULE")
             globalVariables.schedule.update({randomPractice: randomPracticeSlot})
             #decrease practicemax
-            globalVariables.practiceSlots[str(randomPracticeSlot).strip()]["practicemax"] = int(globalVariables.practiceSlots[str(randomPracticeSlot).strip()]["practicemax"]) - 1
+            #globalVariables.practiceSlots[str(randomPracticeSlot).strip()]["practicemax"] = int(globalVariables.practiceSlots[str(randomPracticeSlot).strip()]["practicemax"]) - 1
             #remove practice from practice slots
             globalVariables.practices.remove(str(randomPractice).strip())
     #add in a blank eval value
@@ -233,7 +233,12 @@ def checkGameMax(slot):
     #print("CHECKING TO SEE IF GAMEMAX IS FULL")
     currentMax = globalVariables.gameSlots[str(slot).strip()]["gamemax"]
     #print(currentMax)
-    if int(currentMax)-1 < 0:
+    counter = 0
+    for element in globalVariables.schedule:
+        if str(globalVariables.schedule[element]).strip() == str(slot).strip():
+            counter = counter +1
+    print("COUNTER:" + str(counter))
+    if (counter + 1) > int(currentMax):
         print("GAMEMAX FULL ABORTING")
         return True
     return False
@@ -241,7 +246,11 @@ def checkGameMax(slot):
 def checkPracticeMax(slot):
     currentMax = globalVariables.practiceSlots[str(slot).strip()]["practicemax"]
     #print(globalVariables.practiceSlots)
-    if int(currentMax)-1 < 0:
+    counter = 0
+    for element in globalVariables.schedule:
+        if str(globalVariables.schedule[element]).strip() == str(slot).strip():
+            counter = counter +1
+    if (counter +1) > int(currentMax):
         print("PRACTICEMAX FULL ABORTING")
         return True
     return False
