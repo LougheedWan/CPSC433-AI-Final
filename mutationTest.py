@@ -168,6 +168,8 @@ def mutate (currentPop):
                 else:
                     print("spec booking check passed")
                     chkSpecBooking = False
+                    print(isSameSlot, isGameSlot, MaxExceed, Unwanted, NotCompatible, isEvening, YouthOverlap, chkTues, chkSpecBooking, evalOrid)
+                    
 
             newGameSlot = newTempGameSlot
             #TODO: increase the practicemax value of newPrcSlot 
@@ -282,6 +284,7 @@ def mutate (currentPop):
                 else:
                     print("special booking check passed")
                     chkSpecBooking = False
+                    print(isSameSlot, isPrcSlot, MaxExceed, Unwanted, NotCompatible, isEvening, chkSpecBooking, evalOrid)
                 
 
             newPrcSlot = newTempPrcSlot
