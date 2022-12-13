@@ -33,10 +33,17 @@ def cross(populationOrig):
     # it on a first come first serve basis
     k = fi.keys()    
     for x in k:
+        # print(type(x))
         isGame = False
         # check if x is a game or a practice
-        if((k.find('PRC') == -1) and (k.find('OPN') == -1)):
+        #if ("PRC") or ("OPN") or ("Eval") or ("ID") in x:
+            # isGame = True
+
+        if((x.find('PRC') == -1) and (x.find('OPN') == -1) and (x.find('Eval') == -1) and (x.find('ID') == -1)):
             isGame = True
+
+        if((x.find('Eval') != -1) or (x.find('ID') != -1)):
+            continue
 
         if "MO" or "FR" in fi.get(x):
             if check_scheduling(x, fi.get(x), fk, isGame):
@@ -49,8 +56,17 @@ def cross(populationOrig):
     for x in k:
         isGame = False
         # check if x is a game or a practice
-        if((k.find('PRC') == -1) and (k.find('OPN') == -1)):
+        # if((k.find('PRC') == -1) and (k.find('OPN') == -1)):
+        #     isGame = True
+
+        if((x.find('PRC') == -1) and (x.find('OPN') == -1) and (x.find('Eval') == -1) and (x.find('ID') == -1)):
             isGame = True
+        
+        if((x.find('Eval') != -1) or (x.find('ID') != -1)):
+            continue
+
+        # if ("PRC") or ("OPN") or ("Eval") or ("ID") in x:
+        #     isGame = True
 
         if "MO" or "FR" in fj.get(x):
             if check_scheduling(x, fi.get(x), fg, isGame):
@@ -89,6 +105,7 @@ def check_scheduling(gp, slot, population, isGame):
         valid = not generatePopulation.checkEvening(gp, slot)
     # games-only hard constraints
     if (isGame):
+        print("GP: ", gp)
         valid = not generatePopulation.checkYouthOverlap(gp, slot)
     if (isGame):
         valid = not generatePopulation.checkTuesdays(slot)
