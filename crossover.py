@@ -13,9 +13,17 @@ def cross(populationOrig):
     
     # fi has a random schedule from the top 30%
     length30 = round(0.3 * len(population))
-    fi = population[random.randint(0, length30)] 
+    fi = population[random.randint(0, length30)]
+    print("\nParent #1\n", fi) 
     # fj has a random schedule from the whole population
     fj = population[random.randint(0, len(population) - 1)]
+
+    # make sure fi and fj are not the same 
+    while(fi == fj):
+        fj = population[random.randint(0, len(population) - 1)]
+    print("\nParent #2\n", fj)
+
+    # fk = child 1, fg = child 2
     fk = {}
     fg = {}
     # key is the game/practice 
@@ -25,19 +33,30 @@ def cross(populationOrig):
     # it on a first come first serve basis
     k = fi.keys()    
     for x in k:
+        isGame = False
+        # check if x is a game or a practice
+        if((k.find('PRC') == -1) and (k.find('OPN') == -1)):
+            isGame = True
+
         if "MO" or "FR" in fi.get(x):
-            if check_scheduling(x, fi.get(x), fk):
+            if check_scheduling(x, fi.get(x), fk, isGame):
                 fk[x] = fi.get(x)
-        if "TU" or "THUR" in fi.get(x):
-            if check_scheduling(x, fi.get(x), fg):
+        if "TU" in fi.get(x):
+            if check_scheduling(x, fi.get(x), fg, isGame):
                 fg[x] = fi.get(x)
     k = fj.keys()
+
     for x in k:
+        isGame = False
+        # check if x is a game or a practice
+        if((k.find('PRC') == -1) and (k.find('OPN') == -1)):
+            isGame = True
+
         if "MO" or "FR" in fj.get(x):
-            if check_scheduling(x, fi.get(x), fg):
+            if check_scheduling(x, fi.get(x), fg, isGame):
                 fg[x] = fi.get(x)
-        if "TU" or "THUR" in fj.get(x):
-            if check_scheduling(x, fi.get(x), fk):
+        if "TU" in fj.get(x):
+            if check_scheduling(x, fi.get(x), fk, isGame):
                 fk[x] = fi.get(x)
 
     fk["ID"] = id 
@@ -47,12 +66,17 @@ def cross(populationOrig):
     population.append(fk)
     population.append(fg)
 
- # fg and fk are the two child dictionaries that will be added to the end of the population
+    print("\nChild #1\n", fk)
+    print("\nChild #2\n", fg)
+
+    return population
+
+# fg and fk are the two child dictionaries that will be added to the end of the population
  
 # checks the constraints that can be broken by the new schedules
 # also check if the game or practice has already been scheduled and if
 # it has then we sort by first come first serve
-def check_scheduling(gp, slot, population):
+def check_scheduling(gp, slot, population, isGame):
     valid = True
     valid = not generatePopulation.checkNotCompatible(gp, slot)
     if valid:
@@ -63,6 +87,11 @@ def check_scheduling(gp, slot, population):
         valid = not generatePopulation.checkSpecialBooking(gp, slot)
     if valid:
         valid = not generatePopulation.checkEvening(gp, slot)
+    # games-only hard constraints
+    if (isGame):
+        valid = not generatePopulation.checkYouthOverlap(gp, slot)
+    if (isGame):
+        valid = not generatePopulation.checkTuesdays(slot)
     return valid
 
 def scheduled(population, pg):
