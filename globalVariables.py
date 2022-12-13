@@ -36,4 +36,4 @@ global schedule
 schedule = {}
 
 global popMax
-popMax = int
+popMax = 10
