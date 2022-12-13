@@ -7,7 +7,7 @@ def mutate (currentPop):
 
     population = currentPop
     popNum = len(population)
-    popMax = 10
+    popMax = globalVariables.popMax
     
     # mutateNum is the number of facts in the population that will be mutated
     mutateNum = random.randint(1, (popMax - popNum))
