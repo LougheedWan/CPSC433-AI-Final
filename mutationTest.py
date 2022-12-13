@@ -24,7 +24,7 @@ def mutate (currentPop):
     mutatePop = random.sample(population, mutateNum)
     print("MUTATEPOP...\n", mutatePop)
 
-    id = int(popNum) + 1
+    id = int(popNum)
 
     for schedule in mutatePop: 
         if time.time() > timeout:
@@ -163,12 +163,13 @@ def mutate (currentPop):
             # update the schedule with the mutated pair 
             schedule.update({mutateGame: newGameSlot})
             tempSchedule = schedule
-            tempSchedule["ID"] = id
+            #tempSchedule["ID"] = id
             # give this new schedule a new ID
             #schedule["ID"] = id
 
             print("NEWSCHED GAME MUTATED:\n", schedule)   
-
+            print("OLD ID: " + str(schedule["ID"]))
+            print("ID:" + str(id))
         else:
             # selected a practice  
             mutatePrc = keyVal[0]
@@ -267,18 +268,27 @@ def mutate (currentPop):
             # update the schedule with the mutated pair 
             schedule.update({mutatePrc: newPrcSlot})   
             tempSchedule = schedule
-            tempSchedule["ID"] = id
+            #tempSchedule["ID"] = id
             # give this new schedule a new ID
             #schedule["ID"] = id
 
             print("NEWSCHED PRACTICE MUTATED:\n", schedule)
-        
+            print("OLD ID: " + str(schedule["ID"]))
+            print("ID:" + str(id))
+        #reset IDs
         population.append(tempSchedule)
-
-        id = id + 1
+        counter = 0
+        for i in range(len(population)):
+            population[i]["ID"] = i
+            print("SHOULD HAVE RESETTED: "  + str(population[i]["ID"]))
+            print("COUNTER: " + str(i))
+            counter = counter + 1
+        
+        #id = id + 1
     
     print("MUTATION DONE")
     print("NEW POPULATION:\n", population)
+    print("POPULATION ID " + str(population[0]["ID"]))
     return population 
 
 

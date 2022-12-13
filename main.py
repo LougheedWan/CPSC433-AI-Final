@@ -9,11 +9,11 @@ import crossover
 
 print("Intiating Algorithm")
 # popmax is the maximum number of facts in the population; this is fixed
-globalVariables.popMax = 100
+globalVariables.popMax = 10
 #TODO: Generate our population: Input: textfile and integer inputs; Output: population of N valid schedules (Lougheed)
 #lets generate 4 schedules first..
 # using this number as popnum to keep track of the number of facts in a population would be convenient
-for x in range(50):
+for x in range(4):
     generatePopulation.parse_inputs()
     #print(globalVariables.games)
     generatePopulation.generate_pop()

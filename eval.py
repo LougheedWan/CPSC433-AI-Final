@@ -10,7 +10,10 @@ def selectRule(population):
         if selection == 0:
             globalVariables.selection = "mutate"
         else:
-            globalVariables.selection = "cross"
+            if len(population) < 2:
+                globalVariables.selection = "mutate"
+            else:
+                globalVariables.selection = "cross"
     elif globalVariables.popMax <= len(population):
         globalVariables.selection = "delete"
 
