@@ -72,10 +72,12 @@ for x in range (10):
     if globalVariables.selection.strip() == "delete":
         print("Deleting")
         #add delete function here
-        MutatedPopulation = mutationTest.mutate(globalVariables.population)
-        globalVariables.population = MutatedPopulation
+       
     elif globalVariables.selection.strip() == "mutate":
         print("Mutating")
+        MutatedPopulation = mutationTest.mutate(globalVariables.population)
+        globalVariables.population = []
+        globalVariables.population = MutatedPopulation
         #add mutate function here
     elif globalVariables.selection.strip() == "cross":
         print("Crossing over")
