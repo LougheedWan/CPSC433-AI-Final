@@ -3,10 +3,11 @@
 import generatePopulation
 import globalVariables
 import deleteFacts
-import mutation
+import mutationTest
 import eval
 
 print("Intiating Algorithm")
+# popmax is the maximum number of facts in the population; this is fixed
 globalVariables.popMax = 10
 
 #TODO: Generate our population: Input: textfile and integer inputs; Output: population of N valid schedules (Lougheed)
@@ -42,17 +43,21 @@ print(globalVariables.population)
 #NOTE: all data is now inputted into different data structures defined in globalVariables.py, this should help with the Evaluation of best solutions.
 #All functions below should take ONE valid schedule at a time, and we shall repeat the functions for all schedules
 
-#TODO: Deletion (Alexis)
-population = deleteFacts.delete(globalVariables.population)
+#TODO: Deletion
+# deletionFacts returns a new generation of population after the delete operation is applied to the current one 
+#DeletePopulation = deleteFacts.delete(globalVariables.population)
 #print("Testing the deletion operation...")
-#print(population)
+#print(DeletePopulation)
 
-#TODO: Mutation (Isaac)
-population = mutation.mutate(globalVariables.population)
-#TODO: Crossover (Yianni)
 
-#TODO: (Chirag) Evaluate best solutions and repeat, this TODO also includes:
-eval.selectRule(globalVariables.population)
+#TODO: Mutation 
+MutatedPopulation = mutationTest.mutate(globalVariables.population)
+#print(MutatedPopulation)
+
+#TODO: Crossover 
+
+#TODO: Evaluate best solutions and repeat, this TODO also includes:
+# eval.selectRule(globalVariables.population)
 # 1. determing which class of extension rules to choose (section 2.3.1 f_wert in the paper)
 # do not worry about choosing what individuals (i..e, schedules) to apply the extension rules to - this should be implemented above, unique for each rule.
 # 2. evalutate EVAL, we need to determine what the eval number is based on soft contraints
