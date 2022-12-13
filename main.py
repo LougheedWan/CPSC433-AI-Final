@@ -77,14 +77,16 @@ for x in range (10):
 #find lowest eval value of final generation to output
 bestAnswerID = ""
 bestAnswer = ""
+counter = 0
 for schedule in globalVariables.population:
     if bestAnswerID == "":
-        bestAnswerID = schedule.get("ID")
+        bestAnswerID = counter
         bestAnswer = schedule.get("Eval")
 
     if int(bestAnswer) > schedule.get("Eval"):
-        bestAnswerID = schedule.get("ID")
+        bestAnswerID = counter
         bestAnswer = schedule.get("Eval")
+    counter = counter + 1
 print("")
 print("")
 print("")
@@ -93,7 +95,7 @@ print("")
 print("")
 print("")
 print("BEST GENERATED SCHEDULE:")
-finalAnswer = globalVariables.population[int(bestAnswerID)]
+finalAnswer = globalVariables.population[bestAnswerID]
 for answer in finalAnswer:
     print(str(answer) + ": " + str(finalAnswer[answer]))
 # 1. determing which class of extension rules to choose (section 2.3.1 f_wert in the paper)
